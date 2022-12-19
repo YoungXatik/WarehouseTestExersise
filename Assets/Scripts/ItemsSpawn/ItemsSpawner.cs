@@ -7,9 +7,9 @@ using Random = UnityEngine.Random;
 public class ItemsSpawner : MonoBehaviour
 {
     public List<Transform> spawnPoints = new List<Transform>();
-    public List<GameObject> spawnedObjects = new List<GameObject>();
+    public List<Item> spawnedObjects = new List<Item>();
 
-    [SerializeField] private GameObject itemPrefab;
+    [field: SerializeField] public Item itemPrefab { get; private set; }
 
     private void Start()
     {
@@ -30,7 +30,11 @@ public class ItemsSpawner : MonoBehaviour
         {
             Debug.Log("no space");
         }
-       
-        
+    }
+
+    public void RemoveItem()
+    {
+        spawnedObjects.RemoveAt(0);
+        Destroy(spawnedObjects[0].gameObject);
     }
 }
