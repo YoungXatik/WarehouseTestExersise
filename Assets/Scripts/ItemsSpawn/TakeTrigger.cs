@@ -29,6 +29,10 @@ public class TakeTrigger : MonoBehaviour
       if (other.TryGetComponent<PlayerInventory>(out playerInventory))
       {
          playerInventory.PlayerExitTakeTrigger();
+         if (_itemsSpawner.spawnedObjects.Count != _itemsSpawner.spawnPoints.Count)
+         {
+            _itemsSpawner.StartSpawnItems();
+         }
       }
    }
 }

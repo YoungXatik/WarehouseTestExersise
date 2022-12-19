@@ -16,11 +16,28 @@ public class PlayerMovement : MonoBehaviour
     private float _speedCounter;
     private float _timeToChangeSpeed = 0.5f;
 
+    private PlayerInventory _playerInventory;
+
     private void Start()
     {
         _trueSpeed = speed;
         _joystick = FindObjectOfType<Joystick>();
         _rigidbody = GetComponent<Rigidbody>();
+        _playerInventory = GetComponent<PlayerInventory>();
+    }
+
+    private void Update()
+    {
+        if (_playerInventory.playerInventory.Count >= 1)
+        {
+            playerAnimator.ResetTrigger("nocarrying");
+            playerAnimator.SetTrigger("carrying");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("carrying");
+            playerAnimator.SetTrigger("nocarrying");
+        }
     }
 
     private void FixedUpdate()

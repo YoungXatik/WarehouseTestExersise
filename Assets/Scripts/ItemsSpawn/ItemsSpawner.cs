@@ -8,12 +8,12 @@ public class ItemsSpawner : MonoBehaviour
 {
     public List<Transform> spawnPoints = new List<Transform>();
     public List<Item> spawnedObjects = new List<Item>();
-
+    
     [field: SerializeField] public Item itemPrefab { get; private set; }
 
     private void Start()
     {
-        StartCoroutine(SpawnItems());
+        StartSpawnItems();
     }
 
     private IEnumerator SpawnItems()
@@ -32,9 +32,21 @@ public class ItemsSpawner : MonoBehaviour
         }
     }
 
+    public void StartSpawnItems()
+    {
+        StartCoroutine(SpawnItems());
+    }
+
     public void RemoveItem()
     {
-        spawnedObjects.RemoveAt(0);
-        Destroy(spawnedObjects[0].gameObject);
+        if (spawnedObjects.Count != 0)
+        {
+            Destroy(spawnedObjects[spawnedObjects.Count - 1].gameObject);
+            spawnedObjects.RemoveAt(spawnedObjects.Count - 1);
+        }
+        else
+        {
+            return;
+        }
     }
 }
