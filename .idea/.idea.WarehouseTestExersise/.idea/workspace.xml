@@ -14,17 +14,19 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/MaterialReferenceManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/SellPoint.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoney.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/Item.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/TakeTrigger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/ItemsSpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInventory.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ItemsSpawn/SellPoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoney.cs" />
       </list>
     </option>
   </component>
@@ -68,6 +70,7 @@
       <updated>1671465600624</updated>
       <workItem from="1671465609413" duration="1628000" />
       <workItem from="1671482205278" duration="7902000" />
+      <workItem from="1671529389900" duration="7838000" />
     </task>
     <servers />
   </component>

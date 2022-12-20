@@ -9,14 +9,16 @@ public class SellPoint : MonoBehaviour
 {
     public List<Transform> placePoints = new List<Transform>();
     public List<Item> placedItems = new List<Item>();
-
-    private Item _currentItem;
-    [SerializeField] private int itemsCount;
+    
     [SerializeField] private int maxItemsCount;
     [SerializeField] private TextMeshProUGUI countText;
 
     private Vector3 _spawnPoint;
+
+    [SerializeField] private float timeToPlaceItem;
     
+    public List<Item> playerItems = new List<Item>();
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,12 +26,9 @@ public class SellPoint : MonoBehaviour
         if (other.TryGetComponent<PlayerInventory>(out _playerInventory))
         {
             _spawnPoint = _playerInventory.transform.position;
-            for (int i = 0; i < _playerInventory.playerInventory.Count; i++)
-            {
-                _currentItem = _playerInventory.playerInventory[itemsCount];
-                StartCoroutine(CreateItem(_spawnPoint));
-                _playerInventory.AllowPlayerPlaceItems();
-            }
+            playerItems = _playerInventory.playerInventory;
+            PlaceItems();
+            _playerInventory.AllowPlayerPlaceItems();
         }
     }
 
@@ -38,31 +37,50 @@ public class SellPoint : MonoBehaviour
         PlayerInventory _playerInventory;
         if (other.TryGetComponent<PlayerInventory>(out _playerInventory))
         {
+            playerItems.Clear();
             _playerInventory.ForbidPlayerPlaceItems();
-            itemsCount = 0;
+            SellPlacedItems();
+            UpdateUI();
         }
     }
 
     private void UpdateUI()
     {
-        countText.text = $"{itemsCount}/{maxItemsCount}";
+        countText.text = $"{placedItems.Count}/{maxItemsCount}";
     }
 
-    private IEnumerator CreateItem(Vector3 startPos)
+    private void SellPlacedItems()
     {
-        var clone = Instantiate(_currentItem,startPos,Quaternion.identity,placePoints[itemsCount]);
-        placedItems.Add(clone);
-        clone.transform.DOMove(placePoints[itemsCount].position, 0.35f).SetEase(Ease.Linear);
-        itemsCount++;
-        UpdateUI();
-        yield return new WaitForSeconds(0.35f);
-        if (placedItems.Count != placePoints.Count)
+        int sum = 0;
+        for (int i = 0; i < placedItems.Count; i++)
         {
-            yield return CreateItem(_spawnPoint);
+            sum += placedItems[i].ItemCost;
+            placedItems[i].gameObject.transform.DOScale(0, 0.25f).From(1).SetEase(Ease.Linear).OnComplete(delegate
+            {
+                Destroy(placedItems[i].gameObject);
+            });
         }
-        else
+        placedItems.Clear();
+        PlayerMoney.Instance.AddMoney(sum);
+    }
+
+    private void PlaceItems()
+    {
+        for (int i = 0; i < playerItems.Count; i++)
         {
-            Debug.Log("no space");
+            if (placedItems.Count != placePoints.Count)
+            {
+                var clone = Instantiate(playerItems[placedItems.Count], _spawnPoint, Quaternion.identity,
+                    placePoints[placedItems.Count]);
+                clone.transform.DOMove(placePoints[placedItems.Count].position, timeToPlaceItem).SetEase(Ease.Linear);
+                placedItems.Add(clone);
+                UpdateUI();
+            }
+            else
+            {
+                Debug.Log("no more items to place");
+                playerItems.Clear();
+            }
         }
     }
 }

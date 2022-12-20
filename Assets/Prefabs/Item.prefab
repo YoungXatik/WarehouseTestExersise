@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c7f9ee1038b0b040af1219033d5f857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemCost>k__BackingField: 0
+  <ItemCost>k__BackingField: 5
 --- !u!1001 &6667921815992996509
 PrefabInstance:
   m_ObjectHideFlags: 0
